@@ -302,12 +302,12 @@ export function useShipEditor({
   };
 
   const handleExportDatabase = async () => {
-    const [{ buildDatabaseExportBlob }, { downloadBlob }] = await Promise.all([
+    const [{ buildDatabaseExportArchive }, { downloadArchive }] = await Promise.all([
       import('../../domain/importExport/databaseExport.js'),
       import('../../services/fileDownload.js'),
     ]);
-    const exportBlob = await buildDatabaseExportBlob(databaseState);
-    downloadBlob(exportBlob, 'db_export.zip');
+    const exportArchive = await buildDatabaseExportArchive(databaseState);
+    downloadArchive(exportArchive, 'db_export.zip');
   };
 
   return {

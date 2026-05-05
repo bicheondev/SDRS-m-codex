@@ -1,8 +1,9 @@
 import { forwardRef, memo, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { Image, ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 
 import { AppIcon } from '../../components/Icons.jsx';
 import { interactiveStyles, getInteractiveScale } from '../../components/interactiveStyles.js';
+import { AppImage } from '../../components/primitives/AppImage.jsx';
 import { InteractivePressable } from '../../components/primitives/InteractivePressable.jsx';
 import { AppText as Text } from '../../components/primitives/AppTypography.jsx';
 import { useReducedMotionSafe } from '../../hooks/useReducedMotionSafe.js';
@@ -203,7 +204,7 @@ export const VesselCard = memo(function VesselCard({ hiddenThumbnail = false, ve
           { transform: [{ scale: pressed ? getInteractiveScale('card') : 1 }] },
         ]}
       >
-        <Image source={{ uri: vessel.imageWide }} style={styles.vesselCardImage} />
+        <AppImage source={vessel.imageWide} style={styles.vesselCardImage} />
       </InteractivePressable>
 
       <View style={styles.vesselCardBody}>
@@ -276,7 +277,7 @@ export const CompactVesselCard = memo(function CompactVesselCard({
             { transform: [{ scale: pressed ? getInteractiveScale('card') : 1 }] },
           ]}
         >
-          <Image source={{ uri: vessel.imageCompact }} style={styles.compactImage} />
+          <AppImage source={vessel.imageCompact} style={styles.compactImage} />
         </InteractivePressable>
       </View>
 
@@ -363,11 +364,12 @@ const VesselResultsBase = forwardRef(function VesselResults(
       showsVerticalScrollIndicator
       style={[styles.mainContent, chromeScrollbar && styles.mainContentChromeScrollbar, style]}
     >
-      <div
+      <View
         key={`${compact ? 'compact' : 'card'}-${modeAnimationId}`}
         className={`vessel-results-mode ${
           modeAnimationId > 0 ? 'vessel-results-mode--transitioning' : ''
         }`.trim()}
+        style={styles.resultsMode}
       >
         {vessels.length === 0 ? (
           <VesselEmptyState />
@@ -394,7 +396,7 @@ const VesselResultsBase = forwardRef(function VesselResults(
             </View>
           ))
         )}
-      </div>
+      </View>
     </ScrollView>
   );
 });
@@ -416,6 +418,9 @@ const styles = StyleSheet.create({
     marginBottom: 84,
   },
   mainContentContainer: {
+    flexGrow: 1,
+  },
+  resultsMode: {
     flexGrow: 1,
   },
   emptyState: {

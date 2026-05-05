@@ -2,6 +2,7 @@ import { forwardRef, useCallback, useEffect, useMemo, useRef, useState } from 'r
 import { Pressable, StyleSheet, View } from 'react-native';
 
 import { getHighResolutionTime } from '../../platform/index.js';
+import { resolveThemeValue } from '../../theme.js';
 
 const GUIDE_VARIANTS = {
   default: {
@@ -88,7 +89,23 @@ function toCssLength(value) {
     return undefined;
   }
 
-  return typeof value === 'number' ? `${value}px` : String(value);
+  if (typeof value === 'number') {
+    return value;
+  }
+
+  const text = String(value).trim();
+  if (text === 'var(--radius-interaction)') {
+    return 12;
+  }
+  if (text === 'var(--motion-thumbnail-radius)') {
+    return 6;
+  }
+  if (text.endsWith('px')) {
+    const parsed = Number(text.slice(0, -2));
+    return Number.isFinite(parsed) ? parsed : undefined;
+  }
+
+  return resolveThemeValue(text);
 }
 
 function resolveCssInset(value) {
@@ -103,7 +120,7 @@ function resolveCssInset(value) {
     };
   }
 
-  const parts = String(resolvedValue).trim().split(/\s+/);
+  const parts = String(resolvedValue).trim().split(/\s+/).map(toCssLength);
   const [top, right = top, bottom = top, left = right] = parts;
 
   return { bottom, left, right, top };
@@ -114,9 +131,7 @@ function resolvePressGuideVariables(variant, color, radius, inset) {
   const resolvedRadius = toCssLength(radius ?? resolvedVariant.radius);
 
   return {
-    '--press-overlay-color': color ?? resolvedVariant.backgroundColor,
-    '--press-overlay-inset': toCssLength(inset ?? resolvedVariant.inset),
-    ...(resolvedRadius ? { '--press-radius': resolvedRadius } : null),
+    minHeight: 0,
   };
 }
 
@@ -126,7 +141,7 @@ function resolvePressGuideOverlayStyle(variant, color, radius, inset) {
 
   return {
     ...resolveCssInset(inset ?? resolvedVariant.inset),
-    backgroundColor: color ?? resolvedVariant.backgroundColor,
+    backgroundColor: resolveThemeValue(color ?? resolvedVariant.backgroundColor),
     borderRadius: resolvedRadius,
   };
 }

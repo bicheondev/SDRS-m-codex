@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { Pressable, StyleSheet, View, useWindowDimensions } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 
 import { filterVessels } from '../../domain/ships.js';
 import { motionDurationsMs, motionTokens } from '../../motion.js';
@@ -10,6 +10,7 @@ import { InteractivePressable } from '../../components/primitives/InteractivePre
 import { AppText as Text } from '../../components/primitives/AppTypography.jsx';
 import { useReducedMotionSafe } from '../../hooks/useReducedMotionSafe.js';
 import { measureNodeInWindow } from '../../utils/layout.js';
+import { useViewportDimensions } from '../../platform/index.js';
 import { applySearchQuery } from './useVesselSearch.js';
 import { TopBar } from './DatabaseTopBars.jsx';
 import { VesselResults } from './VesselResults.jsx';
@@ -54,7 +55,7 @@ export function FilterScreen({
   vesselTypeFilter,
   vesselTypeOptions,
 }) {
-  const windowDimensions = useWindowDimensions();
+  const viewportDimensions = useViewportDimensions();
   const [naturalHarborLabelWidth, setNaturalHarborLabelWidth] = useState(0);
   const [naturalVesselTypeLabelWidth, setNaturalVesselTypeLabelWidth] = useState(0);
   const [harborOptionWidth, setHarborOptionWidth] = useState(0);
@@ -246,8 +247,8 @@ export function FilterScreen({
     harborFilter,
     updateColumnLayout,
     vesselTypeFilter,
-    windowDimensions.height,
-    windowDimensions.width,
+    viewportDimensions.height,
+    viewportDimensions.width,
   ]);
 
   return (
@@ -429,7 +430,7 @@ export function FilterScreen({
 
 const styles = StyleSheet.create({
   layer: {
-    position: 'fixed',
+    position: 'absolute',
     top: 0,
     right: 0,
     bottom: 0,
@@ -437,11 +438,11 @@ const styles = StyleSheet.create({
     zIndex: 5,
   },
   filterScreen: {
-    display: 'block',
+    display: 'flex',
   },
   resultsShell: {
     position: 'relative',
-    minHeight: 'min(calc(100dvh - 40px), var(--screen-height))',
+    flex: 1,
     paddingTop: 108,
     opacity: 0.72,
   },

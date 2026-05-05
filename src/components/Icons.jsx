@@ -1,5 +1,7 @@
 import { StyleSheet, Text } from 'react-native';
 
+import { resolveThemeValue } from '../theme.js';
+
 const ICON_PRESETS = {
   default: {
     glyphSize: 24,
@@ -208,20 +210,20 @@ function getLegacyClassStyles(className) {
 }
 
 function getToneColor(tone) {
-  if (tone === 'primary') return 'var(--color-text-primary)';
-  if (tone === 'secondary') return 'var(--color-text-secondary)';
-  if (tone === 'tertiary') return 'var(--color-text-tertiary)';
-  if (tone === 'muted') return 'var(--color-text-muted)';
-  if (tone === 'slate-300') return 'var(--slate-300)';
-  if (tone === 'slate-400') return 'var(--slate-400)';
-  if (tone === 'slate-500') return 'var(--slate-500)';
-  if (tone === 'blue-500') return 'var(--blue-500)';
-  if (tone === 'accent') return 'var(--color-accent)';
-  if (tone === 'violet') return 'var(--color-text-violet)';
-  if (tone === 'violet-muted') return 'var(--color-text-violet-muted)';
-  if (tone === 'danger') return 'var(--color-text-danger)';
-  if (tone === 'on-accent') return 'var(--color-text-on-accent)';
-  return 'currentColor';
+  if (tone === 'primary') return resolveThemeValue('var(--color-text-primary)');
+  if (tone === 'secondary') return resolveThemeValue('var(--color-text-secondary)');
+  if (tone === 'tertiary') return resolveThemeValue('var(--color-text-tertiary)');
+  if (tone === 'muted') return resolveThemeValue('var(--color-text-muted)');
+  if (tone === 'slate-300') return resolveThemeValue('var(--slate-300)');
+  if (tone === 'slate-400') return resolveThemeValue('var(--slate-400)');
+  if (tone === 'slate-500') return resolveThemeValue('var(--slate-500)');
+  if (tone === 'blue-500') return resolveThemeValue('var(--blue-500)');
+  if (tone === 'accent') return resolveThemeValue('var(--color-accent)');
+  if (tone === 'violet') return resolveThemeValue('var(--color-text-violet)');
+  if (tone === 'violet-muted') return resolveThemeValue('var(--color-text-violet-muted)');
+  if (tone === 'danger') return resolveThemeValue('var(--color-text-danger)');
+  if (tone === 'on-accent') return resolveThemeValue('var(--color-text-on-accent)');
+  return resolveThemeValue('var(--color-text-primary)');
 }
 
 export function AppIcon({
@@ -256,7 +258,7 @@ export function AppIcon({
       style={[
         {
           color: getToneColor(tone),
-          display: 'inline-flex',
+          display: 'flex',
           fontFamily: 'Material Symbols Rounded',
           fontSize: resolvedGlyphSize,
           fontWeight: String(resolvedWeight),

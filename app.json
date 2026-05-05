@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "SDRS",
+    "slug": "sdrs",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "kr.go.sdrs.mobile"
+    },
+    "android": {
+      "package": "kr.go.sdrs.mobile"
+    },
+    "plugins": [
+      "expo-font",
+      "expo-asset"
+    ]
+  }
+}

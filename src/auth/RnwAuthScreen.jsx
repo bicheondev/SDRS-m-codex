@@ -2,9 +2,9 @@ import { useRef } from 'react';
 import { Pressable, StyleSheet, Text, TextInput, useWindowDimensions, View } from 'react-native';
 
 import { motionDurationsMs, motionTokens } from '../motion.js';
+import { resolveThemeValue } from '../theme.js';
 
-const APP_FONT_FAMILY =
-  'Pretendard GOV Variable, Pretendard GOV, -apple-system, BlinkMacSystemFont, system-ui, Roboto, Helvetica Neue, Segoe UI, Apple SD Gothic Neo, Noto Sans KR, Malgun Gothic, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, sans-serif';
+const APP_FONT_FAMILY = 'Pretendard GOV';
 const IOS_EASE = `cubic-bezier(${motionTokens.ease.ios.join(', ')})`;
 
 export function RnwAuthScreen({
@@ -61,11 +61,11 @@ export function RnwAuthScreen({
               placeholder="아이디"
               placeholderTextColor={
                 usernameFocused
-                  ? 'var(--color-text-accent-strong)'
-                  : 'var(--color-text-muted)'
+                  ? resolveThemeValue('var(--color-text-accent-strong)')
+                  : resolveThemeValue('var(--color-text-muted)')
               }
               returnKeyType="next"
-              selectionColor="var(--color-text-accent)"
+              selectionColor={resolveThemeValue('var(--color-text-accent)')}
               spellCheck={false}
               style={[styles.loginInput, usernameFocused && styles.loginInputFocused]}
               value={username}
@@ -83,12 +83,12 @@ export function RnwAuthScreen({
               placeholder="비밀번호"
               placeholderTextColor={
                 passwordFocused
-                  ? 'var(--color-text-accent-strong)'
-                  : 'var(--color-text-muted)'
+                  ? resolveThemeValue('var(--color-text-accent-strong)')
+                  : resolveThemeValue('var(--color-text-muted)')
               }
               returnKeyType="go"
               secureTextEntry
-              selectionColor="var(--color-text-accent)"
+              selectionColor={resolveThemeValue('var(--color-text-accent)')}
               style={[styles.loginInput, passwordFocused && styles.loginInputFocused]}
               value={password}
             />
@@ -135,7 +135,6 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     height: '100%',
-    minHeight: '100%',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
@@ -146,17 +145,17 @@ const styles = StyleSheet.create({
   },
   phoneScreen: {
     position: 'relative',
-    width: 'min(100%, var(--screen-width))',
-    height: 'min(calc(100dvh - 40px), var(--screen-height))',
-    minHeight: 'min(calc(100dvh - 40px), var(--screen-height))',
+    width: '100%',
+    maxWidth: 390,
+    height: '100%',
+    maxHeight: 844,
     overflow: 'hidden',
     backgroundColor: 'var(--color-bg-screen)',
     boxShadow: 'var(--shadow-screen)',
   },
   phoneScreenCompact: {
     width: '100%',
-    height: '100dvh',
-    minHeight: '100dvh',
+    height: '100%',
     boxShadow: 'none',
   },
   loginHeader: {
@@ -164,7 +163,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 18,
   },
   loginHeaderCompact: {
-    minHeight: 'calc(145px + env(safe-area-inset-top, 0px))',
+    minHeight: 145,
   },
   loginTitle: {
     margin: 0,

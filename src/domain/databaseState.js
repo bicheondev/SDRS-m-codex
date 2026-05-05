@@ -1,4 +1,4 @@
-import noImagePlaceholder from '../../no-image.svg';
+import { noImagePlaceholder } from '../assets/noImagePlaceholder.js';
 
 import { buildSearchIndex } from './search.js';
 import { getVesselTypeFromBusiness } from './ships.js';

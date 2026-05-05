@@ -32,7 +32,6 @@ export const screenLayoutStyles = StyleSheet.create({
   appShell: {
     flex: 1,
     width: '100%',
-    minHeight: '100vh',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
@@ -40,24 +39,22 @@ export const screenLayoutStyles = StyleSheet.create({
     backgroundImage: 'var(--gradient-app-shell)',
   },
   appShellCompact: {
-    minHeight: '100dvh',
-    height: '100dvh',
-    display: 'block',
+    height: '100%',
     padding: 0,
   },
   phoneScreen: {
     position: 'relative',
-    width: 'min(100%, var(--screen-width))',
-    minHeight: 'min(calc(100dvh - 40px), var(--screen-height))',
-    height: 'min(calc(100dvh - 40px), var(--screen-height))',
+    width: '100%',
+    maxWidth: 390,
+    height: '100%',
+    maxHeight: 844,
     backgroundColor: 'var(--color-bg-screen)',
     overflow: 'hidden',
     boxShadow: 'var(--shadow-screen)',
   },
   phoneScreenCompact: {
     width: '100%',
-    minHeight: '100dvh',
-    height: '100dvh',
+    height: '100%',
     boxShadow: 'none',
   },
   screenColumn: {
