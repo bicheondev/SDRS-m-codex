@@ -1,4 +1,4 @@
-import noImagePlaceholder from '../../../no-image.svg';
+import { noImagePlaceholder } from '../../assets/noImagePlaceholder.js';
 import { decodeCsvBuffer, parseCsvDocument, serializeCsv } from './csv.js';
 import { createId, createImportError } from './shared.js';
 import { findImageEntryForRegistration } from '../ships.js';

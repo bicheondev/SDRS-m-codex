@@ -518,7 +518,6 @@ export default function RnwMainAppShell({ isActive, onLogout, reducedMotion }) {
 const styles = StyleSheet.create({
   shell: {
     flex: 1,
-    minHeight: '100vh',
     width: '100%',
     position: 'relative',
     overflow: 'hidden',

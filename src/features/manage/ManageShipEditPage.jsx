@@ -1,6 +1,5 @@
 import { useCallback, useDeferredValue, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import {
-  Image,
   PanResponder,
   ScrollView,
   StyleSheet,
@@ -13,6 +12,7 @@ import manageImage from '../../assets/ui/manageImage.png';
 import { AppIcon } from '../../components/Icons.jsx';
 import { interactiveStyles, getInteractiveScale } from '../../components/interactiveStyles.js';
 import { AppScreenShell, screenLayoutStyles } from '../../components/layout/ScreenLayout.jsx';
+import { AppImage } from '../../components/primitives/AppImage.jsx';
 import { InteractivePressable } from '../../components/primitives/InteractivePressable.jsx';
 import { AppText as Text, AppTextInput as TextInput } from '../../components/primitives/AppTypography.jsx';
 import { useReducedMotionSafe } from '../../hooks/useReducedMotionSafe.js';
@@ -29,6 +29,7 @@ import {
   matchesCompiledSearchQuery,
 } from '../../domain/search.js';
 import { pickFile } from '../../services/filePicker.js';
+import { resolveThemeValue } from '../../theme.js';
 
 const IOS_EASE = `cubic-bezier(${motionTokens.ease.ios.join(', ')})`;
 const LIST_ITEM_EASE = 'cubic-bezier(0.22, 1, 0.36, 1)';
@@ -500,7 +501,7 @@ function ManageSubpageTopBar({ saveActive = false, title, onAdd, onBack, onSave 
           accessibilityRole="button"
           className="detail-back-button pressable-control pressable-control--icon"
           onPress={onBack}
-          pressGuideColor="var(--slate-50)"
+          pressGuideColor={resolveThemeValue('var(--slate-50)')}
           pressGuideVariant="icon"
           style={(state) => getPressableStyle(state, 'icon', styles.iconButton)}
         >
@@ -521,7 +522,7 @@ function ManageSubpageTopBar({ saveActive = false, title, onAdd, onBack, onSave 
               accessibilityRole="button"
               className="manage-subpage__add pressable-control pressable-control--icon"
               onPress={onAdd}
-              pressGuideColor="var(--slate-50)"
+              pressGuideColor={resolveThemeValue('var(--slate-50)')}
               pressGuideVariant="icon"
               style={(state) => getPressableStyle(state, 'icon', styles.iconButton)}
             >
@@ -563,8 +564,8 @@ function ManageSearchBar({ onChange, onClear, placeholder = '검색', value = ''
         autoCorrect={false}
         onChangeText={onChange}
         placeholder={placeholder}
-        placeholderTextColor="var(--color-text-muted)"
-        selectionColor="var(--color-accent-solid)"
+        placeholderTextColor={resolveThemeValue('var(--color-text-muted)')}
+        selectionColor={resolveThemeValue('var(--color-accent-solid)')}
         spellCheck={false}
         style={[styles.manageSearchInput, value ? styles.manageSearchInputFilled : null]}
         value={value}
@@ -591,7 +592,7 @@ function ManageFieldInput({ edited = false, onChange, readOnly = false, value })
         autoCorrect={false}
         editable={!readOnly}
         onChangeText={onChange}
-        selectionColor="var(--color-accent-solid)"
+        selectionColor={resolveThemeValue('var(--color-accent-solid)')}
         spellCheck={false}
         style={[
           styles.manageFieldInput,
@@ -623,7 +624,7 @@ function ManageTextBox({
         autoCorrect={false}
         editable={!readOnly}
         onChangeText={onChange}
-        selectionColor="var(--color-accent-solid)"
+        selectionColor={resolveThemeValue('var(--color-accent-solid)')}
         spellCheck={false}
         style={[
           styles.manageTextBoxInput,
@@ -697,10 +698,10 @@ function ManageShipCard({
             pressGuideVariant="media"
             style={(state) => getPressableStyle(state, 'card', styles.manageShipImageButton)}
           >
-            <Image source={resolveImageSource(card.image)} style={styles.manageShipImage} />
+            <AppImage source={resolveImageSource(card.image)} style={styles.manageShipImage} />
           </InteractivePressable>
         ) : (
-          <Image source={resolveImageSource(card.image)} style={styles.manageShipImage} />
+          <AppImage source={resolveImageSource(card.image)} style={styles.manageShipImage} />
         )}
       </View>
 
@@ -1372,7 +1373,7 @@ function ManageSavedToast({ message, onDismiss }) {
         styles.toastShell,
         dragging && styles.toastShellDragging,
         dismissing && styles.toastShellDismissing,
-        { transform: [{ translateX: '-50%' }, { translateY: dragOffset }] },
+        { transform: [{ translateY: dragOffset }] },
       ]}
       {...panResponder.panHandlers}
     >

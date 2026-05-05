@@ -1,1 +1,1 @@
-export { downloadBlob } from '../services/fileDownload.js';
+export { downloadArchive } from '../services/fileDownload.js';

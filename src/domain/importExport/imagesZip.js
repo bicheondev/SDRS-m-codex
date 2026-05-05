@@ -31,27 +31,13 @@ export function getExtensionFromFileName(fileName) {
   return parts.length > 1 ? parts.pop().toLowerCase() : '';
 }
 
-export function arrayBufferToDataUrl(buffer, mimeType) {
-  let binary = '';
-  const bytes = new Uint8Array(buffer);
-
-  for (const byte of bytes) {
-    binary += String.fromCharCode(byte);
-  }
-
-  return `data:${mimeType};base64,${btoa(binary)}`;
+export function base64ToDataUrl(base64, mimeType) {
+  return `data:${mimeType};base64,${base64}`;
 }
 
-export function dataUrlToUint8Array(dataUrl) {
+export function dataUrlToBase64(dataUrl) {
   const [, payload = ''] = String(dataUrl ?? '').split(',');
-  const binary = atob(payload);
-  const bytes = new Uint8Array(binary.length);
-
-  for (let index = 0; index < binary.length; index += 1) {
-    bytes[index] = binary.charCodeAt(index);
-  }
-
-  return bytes;
+  return payload;
 }
 
 export async function importImagesZipFile(file) {
@@ -82,7 +68,7 @@ export async function importImagesZipFile(file) {
         );
       }
 
-      const dataUrl = arrayBufferToDataUrl(await entry.async('arraybuffer'), mimeType);
+      const dataUrl = base64ToDataUrl(await entry.async('base64'), mimeType);
 
       imageEntries.push({
         id: createId('image'),
@@ -115,7 +101,7 @@ export async function buildImagesArchive(imageEntries) {
       continue;
     }
 
-    imagesZip.file(entry.fileName, dataUrlToUint8Array(entry.dataUrl));
+    imagesZip.file(entry.fileName, dataUrlToBase64(entry.dataUrl), { base64: true });
   }
 
   return imagesZip.generateAsync({ type: 'uint8array' });

@@ -5,10 +5,10 @@ import {
   upgradeDatabaseState,
 } from '../domain/databaseState.js';
 import { applyImagesToShipRecords } from '../domain/ships.js';
-import { loadStoredDatabaseState, saveStoredDatabaseState } from '../adapters/storage.web.js';
+import { loadStoredDatabaseState, saveStoredDatabaseState } from '../platform/storage.js';
 
 async function loadDefaultBundledDatabaseState() {
-  const { loadBundledDatabaseState } = await import('../adapters/bundledSeed.web.js');
+  const { loadBundledDatabaseState } = await import('../platform/bundledData.js');
   return loadBundledDatabaseState();
 }
 

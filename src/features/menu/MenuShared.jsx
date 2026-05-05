@@ -4,6 +4,7 @@ import { AppIcon } from '../../components/Icons.jsx';
 import { interactiveStyles, getInteractiveScale } from '../../components/interactiveStyles.js';
 import { InteractivePressable } from '../../components/primitives/InteractivePressable.jsx';
 import { AppText as Text } from '../../components/primitives/AppTypography.jsx';
+import { resolveThemeValue } from '../../theme.js';
 
 export function MenuSubpageTopBar({ title, onBack }) {
   return (
@@ -14,7 +15,7 @@ export function MenuSubpageTopBar({ title, onBack }) {
           accessibilityRole="button"
           className="detail-back-button pressable-control pressable-control--icon"
           onPress={onBack}
-          pressGuideColor="var(--slate-50)"
+          pressGuideColor={resolveThemeValue('var(--slate-50)')}
           pressGuideVariant="icon"
           style={({ focused, pressed }) => [
             interactiveStyles.base,

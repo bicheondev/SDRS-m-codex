@@ -1,11 +1,13 @@
 import { memo, useEffect, useRef } from 'react';
-import { Image, Pressable, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { SvgXml } from 'react-native-svg';
 
+import { logoSvgXml } from '../../assets/uiSvg.js';
 import { AppIcon } from '../../components/Icons.jsx';
 import { AppText as Text, AppTextInput as TextInput } from '../../components/primitives/AppTypography.jsx';
 import { InteractivePressable } from '../../components/primitives/InteractivePressable.jsx';
 import { interactiveStyles, getInteractiveScale } from '../../components/interactiveStyles.js';
-import logo from '../../assets/ui/logo.svg';
+import { resolveThemeValue } from '../../theme.js';
 
 function FrostBackground({ filterSheet = false, scrollbarGutter = false }) {
   return (
@@ -63,7 +65,7 @@ function FiltersRow({
           accessibilityRole="button"
           className="filter-button pressable-control pressable-control--pill"
           onPress={onHarborClick}
-          pressGuideColor="var(--color-press-overlay-slate-100-50)"
+          pressGuideColor={resolveThemeValue('var(--color-press-overlay-slate-100-50)')}
           pressGuideVariant="pill"
           ref={harborButtonRef}
           style={({ focused, pressed }) => [
@@ -87,7 +89,7 @@ function FiltersRow({
           accessibilityRole="button"
           className="filter-button pressable-control pressable-control--pill"
           onPress={onVesselTypeClick}
-          pressGuideColor="var(--color-press-overlay-slate-100-50)"
+          pressGuideColor={resolveThemeValue('var(--color-press-overlay-slate-100-50)')}
           pressGuideVariant="pill"
           ref={vesselTypeButtonRef}
           style={({ focused, pressed }) => [
@@ -124,7 +126,7 @@ function FiltersRow({
             compact ? 'icon-button--active' : ''
           }`.trim()}
           onPress={() => onToggleCompact(true)}
-          pressGuideColor="var(--color-press-overlay-slate-100-50)"
+          pressGuideColor={resolveThemeValue('var(--color-press-overlay-slate-100-50)')}
           pressGuideVariant="icon"
           style={({ focused, pressed }) => [
             interactiveStyles.base,
@@ -147,7 +149,7 @@ function FiltersRow({
             compact ? '' : 'icon-button--active'
           }`.trim()}
           onPress={() => onToggleCompact(false)}
-          pressGuideColor="var(--color-press-overlay-slate-100-50)"
+          pressGuideColor={resolveThemeValue('var(--color-press-overlay-slate-100-50)')}
           pressGuideVariant="icon"
           style={({ focused, pressed }) => [
             interactiveStyles.base,
@@ -209,13 +211,15 @@ export const TopBar = memo(function TopBar({
           inFilterSheet ? styles.pointerEventsNone : styles.pointerEventsAuto,
         ]}
       >
-        <Image accessibilityLabel="SDRS" source={{ uri: logo }} style={styles.logo} />
+        <View accessibilityLabel="SDRS" style={styles.logo}>
+          <SvgXml height="100%" width="100%" xml={logoSvgXml} />
+        </View>
         <InteractivePressable
           accessibilityLabel="검색"
           accessibilityRole="button"
           className="icon-button pressable-control pressable-control--icon"
           onPress={onSearchOpen}
-          pressGuideColor="var(--color-press-overlay-slate-100-50)"
+          pressGuideColor={resolveThemeValue('var(--color-press-overlay-slate-100-50)')}
           pressGuideVariant="icon"
           style={({ focused, pressed }) => [
             interactiveStyles.base,
@@ -297,7 +301,7 @@ export const SearchTopBar = memo(function SearchTopBar({
           accessibilityRole="button"
           className="search-top-bar__back pressable-control pressable-control--icon"
           onPress={onBack}
-          pressGuideColor="var(--slate-50)"
+          pressGuideColor={resolveThemeValue('var(--slate-50)')}
           pressGuideVariant="icon"
           style={({ focused, pressed }) => [
             interactiveStyles.base,
@@ -323,7 +327,7 @@ export const SearchTopBar = memo(function SearchTopBar({
           inputMode="search"
           onChangeText={onQueryChange}
           placeholder="검색"
-          placeholderTextColor="var(--color-text-muted)"
+          placeholderTextColor={resolveThemeValue('var(--color-text-muted)')}
           spellCheck={false}
           style={[styles.searchInput, query ? styles.searchInputFilled : null]}
           value={query}
@@ -335,7 +339,7 @@ export const SearchTopBar = memo(function SearchTopBar({
             accessibilityRole="button"
             className="search-top-bar__cancel pressable-control pressable-control--icon"
             onPress={onClear}
-            pressGuideColor="var(--slate-50)"
+            pressGuideColor={resolveThemeValue('var(--slate-50)')}
             pressGuideVariant="icon"
             style={({ focused, pressed }) => [
               interactiveStyles.base,
@@ -367,10 +371,11 @@ export const SearchTopBar = memo(function SearchTopBar({
 
 const styles = StyleSheet.create({
   topBar: {
-    position: 'fixed',
-    left: '50%',
+    position: 'absolute',
+    left: 0,
+    right: 0,
     top: 0,
-    width: 'min(100%, var(--screen-width))',
+    width: '100%',
     zIndex: 2,
     height: 136,
     overflow: 'hidden',
@@ -436,10 +441,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   searchTopBar: {
-    position: 'fixed',
-    left: '50%',
+    position: 'absolute',
+    left: 0,
+    right: 0,
     top: 0,
-    width: 'min(100%, var(--screen-width))',
+    width: '100%',
     zIndex: 2,
     height: 136,
     overflow: 'hidden',
@@ -447,7 +453,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   screenAligned: {
-    transform: [{ translateX: '-50%' }],
+    transform: [],
   },
   searchMain: {
     position: 'relative',

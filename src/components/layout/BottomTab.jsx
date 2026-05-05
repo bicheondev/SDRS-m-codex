@@ -66,17 +66,17 @@ export default memo(BottomTab);
 
 const styles = StyleSheet.create({
   shell: {
-    position: 'fixed',
-    left: '50%',
+    position: 'absolute',
+    left: 0,
+    right: 0,
     bottom: 0,
-    transform: [{ translateX: '-50%' }],
-    width: 'min(100%, var(--screen-width))',
+    width: '100%',
     height: 84,
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'flex-start',
     justifyContent: 'center',
-    gap: 'clamp(0px, calc((100% - 210px) / 4), 70px)',
+    gap: 16,
     paddingTop: 8,
     zIndex: 4,
     overflow: 'hidden',

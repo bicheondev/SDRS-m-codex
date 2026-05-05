@@ -1,4 +1,4 @@
-export { buildDatabaseExportBlob } from './databaseExport.js';
+export { buildDatabaseExportArchive } from './databaseExport.js';
 export { loadBundledDatabaseStateFromFiles } from './bundledData.js';
 export {
   arrayBufferToDataUrl,

@@ -1,7 +1,7 @@
-import { Image, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import { SvgXml } from 'react-native-svg';
 
-import menuInfoLogo from '../../assets/ui/menuInfoLogo.svg';
-import menuInfoMark from '../../assets/ui/menuInfoMark.svg';
+import { menuInfoLogoSvgXml, menuInfoMarkSvgXml } from '../../assets/uiSvg.js';
 import { AppScreenShell, screenLayoutStyles } from '../../components/layout/ScreenLayout.jsx';
 import { AppText as Text } from '../../components/primitives/AppTypography.jsx';
 import { MenuSubpageTopBar } from './MenuShared.jsx';
@@ -14,13 +14,13 @@ export function MenuInfoPage({ onBack }) {
       <View style={styles.info}>
         <View style={[styles.background, styles.pointerEventsNone]} />
         <View style={styles.content}>
-          <Image accessibilityLabel="" source={{ uri: menuInfoMark }} style={styles.mark} />
+          <View accessibilityLabel="" style={styles.mark}>
+            <SvgXml height="100%" width="100%" xml={menuInfoMarkSvgXml} />
+          </View>
           <View style={styles.logoWrap}>
-            <Image
-              accessibilityLabel="SDRS 선박DB조회체계"
-              source={{ uri: menuInfoLogo }}
-              style={styles.logo}
-            />
+            <View accessibilityLabel="SDRS 선박DB조회체계" style={styles.logo}>
+              <SvgXml height="100%" width="100%" xml={menuInfoLogoSvgXml} />
+            </View>
           </View>
           <Text style={styles.version}>버전 1.0</Text>
         </View>
